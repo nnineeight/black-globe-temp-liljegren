@@ -4,8 +4,7 @@
 # Modifications: 
 # Python port of the globe-temperature modeling component along with required
 # helper functions from the original WBGT model by Nibir Kanti Roy, 2025.
-# Key modifications in the code are in D_GLOBE, ALB_SFC, CONVERGENCE, and
-# MAX_ITER.
+# Key modifications in the code are in D_GLOBE, CONVERGENCE, and MAX_ITER.
 #
 # See LICENSE for terms and required acknowledgment.
 
@@ -36,7 +35,7 @@ ALB_GLOBE   = 0.05            # globe albedo
 D_GLOBE     = 0.0635          # globe diameter, m
 
 EMIS_SFC    = 0.999           # surface emissivity
-ALB_SFC     = 0.25            # surface albedo, for green grass
+ALB_SFC     = 0.45            # surface albedo
 
 # Computational and physical limits
 CZA_MIN         = 0.00873     # min cosine of zenith angle
