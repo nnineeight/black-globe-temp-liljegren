@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+title: "Black Globe Temperature (Original by Liljegren et al., 2008, translated into Python)"
+message: "If you use this code, please cite it and the original Liljegren WBGT model."
+authors:
+  - family-names: "Roy"
+    given-names: "Nibir Kanti"
+    affiliation: "Auburn University, Auburn, AL, 36849, USA"
+version: "0.1.0"
+date-released: "2025-09-12"
+repository-code: "https://github.com/nnineeight/black-globe-temp-liljegren"
+keywords: [Black globe temperature, Python version, Liljegren]
+license: "Other"
+preferred-citation:
+  type: software
+  title: "Black Globe Temperature (Original by Liljegren et al., 2008, translated into Python)"
+  authors:
+    - family-names: "Roy"
+      given-names: "Nibir Kanti"
+  version: "0.1.0"
