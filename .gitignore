@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+*.ipynb~  # temp backups some editors make
+.venv/
+env/
+dist/
+build/
+*.egg-info/
+.DS_Store
