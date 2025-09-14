@@ -22,27 +22,27 @@ RAD_DEG    = 57.295779513082323
 # Physical constants
 SOLAR_CONST = 1367.0          # W/m2
 STEFANB     = 5.6696e-8       # Stefan-Boltzmann constant, W/m2/K4
-Cp          = 1003.5          # specific heat capacity of air, J/kg/K
+Cp          = 1003.5          # Specific heat capacity of air, J/kg/K
 M_AIR       = 28.97
 M_H2O       = 18.015
-R_GAS       = 8314.34         # gas constant
+R_GAS       = 8314.34         # Gas constant
 R_AIR       = R_GAS / M_AIR
 Pr          = Cp / (Cp + 1.25 * R_AIR)    # Prandtl number
 
 # Globe & surface constants
-EMIS_GLOBE  = 0.95            # globe emissivity
+EMIS_GLOBE  = 0.95            # Globe emissivity
 ALB_GLOBE   = 0.05            # globe albedo
-D_GLOBE     = 0.0635          # globe diameter, m
+D_GLOBE     = 0.0635          # Globe diameter, m
 
-EMIS_SFC    = 0.999           # surface emissivity
-ALB_SFC     = 0.45            # surface albedo
+EMIS_SFC    = 0.999           # Surface emissivity
+ALB_SFC     = 0.45            # Surface albedo
 
 # Computational and physical limits
-CZA_MIN         = 0.00873     # min cosine of zenith angle
+CZA_MIN         = 0.00873     # Minimum cosine of zenith angle
 NORMSOLAR_MAX   = 0.85
-MIN_SPEED       = 0.13        # min wind speed
+MIN_SPEED       = 0.13        # Minimum wind speed
 CONVERGENCE     = 0.01        # K
-MAX_ITER        = 500         # max no of iterations
+MAX_ITER        = 500         # Maximum no of iterations
 
 
 # ------------------------------------------------------------------------
@@ -94,15 +94,15 @@ def solarposition(year, month, day, days_1900,
     # ------------------------------------------------------------------
     # Convert date to days, centuries since J2000
     # ------------------------------------------------------------------
-    if year!=0:                                       # date via Y-M-D
+    if year!=0:                                       # Date via Y-M-D
         if not (1950 <= year <= 2049):
             raise ValueError("year out of range for low-precision formula")
 
-        if month:                                     # month ≠ 0 to calendar date
+        if month:                                     # Month ≠ 0 to calendar date
             if not (1 <= month <= 12 and 0 <= day <= 33):
                 raise ValueError("bad month/day")
             daynumber = daynum(year, month, int(day))
-        else:                                         # month == 0 to day-of-year
+        else:                                         # Month == 0 to day-of-year
             if not (0 <= day <= 368):
                 raise ValueError("bad day-of-year")
             daynumber = int(day)
@@ -113,19 +113,19 @@ def solarposition(year, month, day, days_1900,
             delta_days += 1
         days_J2000  = delta_days - 1.5
 
-        # compute centuries at 0h UT, before adding UT fraction
+        # Compute centuries at 0h UT, before adding UT fraction
         cent_J2000 = days_J2000 / 36525.0
  
-        ut, integral = math.modf(day)                 # fractional day to UT
+        ut, integral = math.modf(day)                 # Fractional day to UT
         days_J2000 += ut
         ut *= 24.0
-    else:                                             # date via days_1900
+    else:                                             # Date via days_1900
         if not (18262.0 <= days_1900 <= 54788.0):
             raise ValueError("days_1900 out of range")
-        days_J2000 = days_1900 - 36525.5              # convert 1900-based days to J2000-based
+        days_J2000 = days_1900 - 36525.5              # Convert 1900-based days to J2000-based
         ut, integral = math.modf(days_1900)
         ut *= 24.0
-        cent_J2000 = (integral - 36525.5) / 36525.0   # centuries since J2000 at 0h UT
+        cent_J2000 = (integral - 36525.5) / 36525.0   # Centuries since J2000 at 0h UT
 
     # ------------------------------------------------------------------
     # Sun coordinates, following Astronomical Almanac 1990
@@ -136,7 +136,7 @@ def solarposition(year, month, day, days_1900,
 
     ecl_long = mean_longitude + math.radians(
         1.915 * math.sin(mean_anomaly) + 0.020 * math.sin(2*mean_anomaly)
-    )                                                    # ecliptic longitude (rad)
+    )                                                    # Ecliptic longitude (rad)
 
     dist = 1.00014 - 0.01671 * math.cos(mean_anomaly) \
            - 0.00014 * math.cos(2*mean_anomaly)          # Earth-Sun distance
@@ -147,7 +147,7 @@ def solarposition(year, month, day, days_1900,
     ap_ra = math.atan2(math.cos(mean_obliq)*sin_ecl, cos_ecl)
     if ap_ra < 0:
         ap_ra += TWOPI
-    ap_ra = ap_ra * 24 / TWOPI                # radian to hours
+    ap_ra = ap_ra * 24 / TWOPI                # Radian to hours
     ap_dec = math.asin(math.sin(mean_obliq)*sin_ecl)
 
     # Local mean sidereal time (LMST)
@@ -186,8 +186,8 @@ def solarposition(year, month, day, days_1900,
         az = TWOPI - az
 
     # Simple refraction correction
-    pressure = 1013.25                     # assumed sea-level pressure (mb)
-    temp_C   = 15.0                        # assumed temperature (C) for refraction
+    pressure = 1013.25                     # Assumed sea-level pressure (mb)
+    temp_C   = 15.0                        # Assumed temperature (C) for refraction
     if alt < math.radians(-1.0) or tan_alt == 6.0e6:
         refr = 0.0
     else:
@@ -230,7 +230,7 @@ def calc_solar_parameters(year, month, day_frac, lat, lon, solar_ghi):
         year, month, day_frac, 0.0, lat, lon
     )
     cza = math.cos(math.radians(90.0 - alt_deg))
-    toasolar = SOLAR_CONST * max(0.0, cza) / (dist*dist)
+    toasolar = SOLAR_CONST * max(0.0, cza) / (dist*dist)  # Top of atmosphere solar radiation
 
     if cza < CZA_MIN:
         toasolar = 0.0
@@ -245,7 +245,7 @@ def calc_solar_parameters(year, month, day_frac, lat, lon, solar_ghi):
             fdir = 0.0
     else:
         solar = solar_ghi
-        fdir  = 0.0                 # no beam component at night
+        fdir  = 0.0                 # No beam component at night
 
     return solar, cza, fdir
 
@@ -309,8 +309,8 @@ def Tglobe(Tair_K, rh_frac, Pair_mb, speed, solar, fdir, cza):
     -----------------------------------
     Tg_C     : float   – globe temperature (C)
     """
-    Tsfc   = Tair_K         # approximate ground temperature == air temp (K)
-    T_prev = Tair_K         # initial globe temperature guess == air temp (K)
+    Tsfc   = Tair_K         # Approximate ground temperature == air temp (K)
+    T_prev = Tair_K         # Initial globe temperature guess == air temp (K)
 
     for _ in range(MAX_ITER):
         T_ref = 0.5 * (T_prev + Tair_K)
@@ -324,9 +324,9 @@ def Tglobe(Tair_K, rh_frac, Pair_mb, speed, solar, fdir, cza):
         T_new = rhs ** 0.25
 
         if abs(T_new - T_prev) < CONVERGENCE:
-            return T_new - 273.15       # return the new value in C
+            return T_new - 273.15       # Return the new value in C
 
-        # under-relaxation
+        # Under-relaxation
         T_prev = 0.9 * T_prev + 0.1 * T_new
 
     return -9999.0
