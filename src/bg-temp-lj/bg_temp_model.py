@@ -293,7 +293,8 @@ def h_sphere_in_air(D, Tair, Pair, speed):
 # ------------------------------------------------------------------------
 def Tglobe(Tair_K, rh_frac, Pair_mb, speed, solar, fdir, cza):
     """
-    Globe temperature solver using the Liljegren energy-balance.
+    Globe temperature solver using the energy-balance from Liljegren's 
+    WBGT model.
 
     Parameters
     -----------------------------------
