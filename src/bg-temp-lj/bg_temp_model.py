@@ -1,10 +1,10 @@
-# Derived from WBGT v1.1 (James C. Liljegren, Argonne National Laboratory)
+# Derived from WBGT Model (James C. Liljegren, Argonne National Laboratory)
 # © 2008 UChicago Argonne, LLC. All Rights Reserved.
 #
-# Modifications: 
-# Python port of the globe-temperature modeling component along with required
+# Modifications:
+# Python port of the globe temperature modeling component along with required
 # helper functions from the original WBGT model by Nibir Kanti Roy, 2025.
-# Key modifications in the code are in D_GLOBE, CONVERGENCE, and MAX_ITER.
+# Key value modifications in the code are in D_GLOBE, CONVERGENCE, and MAX_ITER.
 #
 # See LICENSE for terms and required acknowledgment.
 
